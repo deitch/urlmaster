@@ -138,7 +138,11 @@ expected = um.resolveAll();
 
 expected = um.resolveTrack(
  um.generateAll({scheme:"http",auth:'www.why.com',path:'/a/b',query:'?foo=bar',frag:'#abc'}),
- ref = um.generateAll({scheme:"https",auth:'www.not.com',path:'/q/r',query:'?when=now',frag:'#xyz'})
+ um.generateAll({scheme:"https",auth:'www.not.com',path:'/q/r',query:'?when=now',frag:'#xyz'})
 );
 
 ````
+
+To generate a test set from the command-line (Unix/Linux/BSD/Mac only), after npm install:
+
+    node_modules/.bin/urlmasterset > some_output_file.json

@@ -1,7 +1,7 @@
 { 
 	"name": "urlmaster", 
 	"description": "URL, Web, testing",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"url": "http://github.com/deitch/urlmaster",
 	"author": "Avi Deitcher <avi@deitcher.net>",
 	"engines": ["node >= 0.6"],
@@ -11,5 +11,6 @@
 	"repository": {
 		"type" : "git",
 		"url" : "http://github.com/deitch/urlmaster.git"
-	}
+	},
+	"bin":"./urlmasterset"
 }
