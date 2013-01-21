@@ -16,7 +16,7 @@
 		"url" : "http://github.com/deitch/urlmaster.git"
 	},
 	"scripts":{
-		"test":"./node_modules/.bin/mocha",
+		"test":"./node_modules/.bin/mocha"
 	},
 	"bin":"./urlmasterset"
 }
