@@ -1,16 +1,20 @@
 { 
 	"name": "urlmaster", 
 	"description": "URL, Web, testing",
-	"version": "0.2.0",
+	"version": "0.2.2",
 	"url": "http://github.com/deitch/urlmaster",
 	"author": "Avi Deitcher <avi@deitcher.net>",
 	"engines": ["node >= 0.6"],
 	"main": "./lib/index.js", 
 	"dependencies": {},
-	"devDependencies": {},
+	"devDependencies": {
+		"mocha":">=1.8.1",
+		"should":">=1.2.1"
+	},
 	"repository": {
 		"type" : "git",
 		"url" : "http://github.com/deitch/urlmaster.git"
 	},
+	"test":"./node_modules/.bin/mocha",
 	"bin":"./urlmasterset"
 }
