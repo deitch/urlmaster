@@ -201,3 +201,19 @@ expected = um.resolveTrack(
 To generate a test set from the command-line (Unix/Linux/BSD/Mac only), after npm install:
 
     node_modules/.bin/urlmasterset > some_output_file.json
+
+### A funny thing about empty paths
+According to the RFC at http://tools.ietf.org/html/rfc3986#section-3.3, if the path is empty (path-abempty), then it is valid as "" or "/". So both http://tools.ietf.org and http://tools.ietf.org/ are equally legitimate paths. 
+
+urlmaster had to pick one or the other (with or without slashes) to be consistent. So urlmaster **always** treats empty paths as '/'. However, one some platforms or libraries, you may get results you want to test, and if urlmaster gives http://tools.ietf.org/ then you want http://tools.ietf.org to be treated as legitimate (and vice-versa).
+
+To solve this problem, urlmaster adds two methods:
+
+````JavaScript
+url = um.addPathEmpty(url);
+url = em.clearPathEmpty(url);
+````
+
+As you would expect, `um.addPathEmpty(url)` takes a url as a string, and, if it contains an empty path of "" (with or without host, scheme, query, hash, whatever), then it replaces the empty path with "/" and returns the modified URL.
+
+Similarly, `um.clearEmptyPath(url)` takes a url as a string, and, if it contains an empty path of "/" (with or without host, scheme, query, hash, whatever), then it replaces the empty path "/" with "" and returns the modified URL.

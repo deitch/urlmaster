@@ -336,4 +336,142 @@ describe('urlmaster',function() {
 			});
 		});
 	});
+	describe('empty path',function() {
+		describe('remove slash',function() {
+			describe('with no slash',function() {
+				describe('no hash, no query',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com").should.equal("http://www.google.com");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com#123").should.equal("http://www.google.com#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com?a=b").should.equal("http://www.google.com?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com?a=b#123").should.equal("http://www.google.com?a=b#123");
+					});
+				});
+			});
+			describe('with basic path',function() {
+				describe('no hash, no query',function() {
+					it('should remove slash',function() {
+						um.clearPathEmpty("http://www.google.com/").should.equal("http://www.google.com");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should remove slash',function() {
+						um.clearPathEmpty("http://www.google.com/#123").should.equal("http://www.google.com#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should remove slash',function() {
+						um.clearPathEmpty("http://www.google.com/?a=b").should.equal("http://www.google.com?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should remove slash',function() {
+						um.clearPathEmpty("http://www.google.com/?a=b#123").should.equal("http://www.google.com?a=b#123");
+					});
+				});
+			});
+			describe('with full path',function() {
+				describe('no hash, no query',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com/a/b").should.equal("http://www.google.com/a/b");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com/a/b#123").should.equal("http://www.google.com/a/b#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com/a/b?a=b").should.equal("http://www.google.com/a/b?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should leave as is',function() {
+						um.clearPathEmpty("http://www.google.com/a/b?a=b#123").should.equal("http://www.google.com/a/b?a=b#123");
+					});
+				});
+			});
+		});
+		describe('add slash',function() {
+			describe('with no slash',function() {
+				describe('no hash, no query',function() {
+					it('should add slash',function() {
+						um.addPathEmpty("http://www.google.com").should.equal("http://www.google.com/");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should add slash',function() {
+						um.addPathEmpty("http://www.google.com#123").should.equal("http://www.google.com/#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should add slasg',function() {
+						um.addPathEmpty("http://www.google.com?a=b").should.equal("http://www.google.com/?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should add slash',function() {
+						um.addPathEmpty("http://www.google.com?a=b#123").should.equal("http://www.google.com/?a=b#123");
+					});
+				});
+			});
+			describe('with basic path',function() {
+				describe('no hash, no query',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/").should.equal("http://www.google.com/");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/#123").should.equal("http://www.google.com/#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/?a=b").should.equal("http://www.google.com/?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/?a=b#123").should.equal("http://www.google.com/?a=b#123");
+					});
+				});
+			});
+			describe('with full path',function() {
+				describe('no hash, no query',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/a/b").should.equal("http://www.google.com/a/b");
+					});
+				});
+				describe('hash, no query',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/a/b#123").should.equal("http://www.google.com/a/b#123");
+					});
+				});
+				describe('query, no hash',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/a/b?a=b").should.equal("http://www.google.com/a/b?a=b");
+					});
+				});
+				describe('query and hash',function() {
+					it('should leave as is',function() {
+						um.addPathEmpty("http://www.google.com/a/b?a=b#123").should.equal("http://www.google.com/a/b?a=b#123");
+					});
+				});
+			});
+		});
+	});
 });
