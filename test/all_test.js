@@ -474,4 +474,30 @@ describe('urlmaster',function() {
 			});
 		});
 	});
+	describe('file:/// windows drive letter',function() {
+		describe('base no drive',function() {
+			describe('ref no drive',function() {
+				it('should use the ref path',function() {
+					um.resolve('file:///foo/bar','/a').should.equal('file:///a');
+				});
+			});
+			describe('ref has drive',function() {
+				it('should use the ref drive and path',function() {
+					um.resolve('file:///foo/bar','/C:/a').should.equal('file:///C:/a');
+				});
+			});
+		});
+		describe('base has drive',function() {
+			describe('ref no drive',function() {
+				it('should use the base drive and ref path',function() {
+					um.resolve('file:///C:/foo/bar','/a').should.equal('file:///C:/a');
+				});
+			});
+			describe('ref has drive',function() {
+				it('should use the ref drive and path',function() {
+					um.resolve('file:///C:/foo/bar','/C:/a').should.equal('file:///C:/a');
+				});
+			});
+		});
+	});
 });
