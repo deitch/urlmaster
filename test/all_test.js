@@ -35,6 +35,18 @@ describe('urlmaster',function() {
 							um.resolve('http://www.google.com/foo/bar','http://www.yahoo.com/a/b/c').should.equal('http://www.yahoo.com/a/b/c');
 						});
 					});
+					describe('scheme with no authority in ref',function() {
+						describe('ref-scheme matches base',function() {
+							it('should use base scheme',function() {
+								um.resolve('http://www.google.com/foo/bar','http:/a/b').should.equal('http://www.google.com/a/b');
+							});
+						});
+						describe('ref-scheme does not match base',function() {
+							it('should use ref unchanged',function() {
+								um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https:///a/b');
+							});
+						});
+					});
 				});
 			});
 			describe('base string, href array',function() {
