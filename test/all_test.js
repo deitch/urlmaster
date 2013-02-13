@@ -43,7 +43,7 @@ describe('urlmaster',function() {
 						});
 						describe('ref-scheme does not match base',function() {
 							it('should use ref unchanged',function() {
-								um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https:///a/b');
+								um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https://a/b');
 							});
 						});
 					});
