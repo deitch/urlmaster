@@ -42,8 +42,32 @@ describe('urlmaster',function() {
 							});
 						});
 						describe('ref-scheme does not match base',function() {
-							it('should use ref unchanged',function() {
-								um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https://a/b');
+							describe('with some path',function() {
+								it('should use ref unchanged, but first path part converted to authority',function() {
+									um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https://a/b');
+								});
+							});
+							describe('with no path at all',function() {
+								describe('without slashes',function() {
+									it('should give ref unchanged but correct slashes',function() {
+										um.resolve('http://www.google.com/foo/bar','https:').should.equal('https:///');
+									});
+								});
+								describe('with one slash',function() {
+									it('should give ref unchanged with all slashes',function() {
+										um.resolve('http://www.google.com/foo/bar','https:/').should.equal('https:///');
+									});
+								});
+								describe('with two slashes',function() {
+									it('should give ref unchanged with all slashes',function() {
+										um.resolve('http://www.google.com/foo/bar','https://').should.equal('https:///');
+									});
+								});
+								describe('with all slashes',function() {
+									it('should give ref unchanged with all slashes',function() {
+										um.resolve('http://www.google.com/foo/bar','https:///').should.equal('https:///');
+									});
+								});
 							});
 						});
 					});
