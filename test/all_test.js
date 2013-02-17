@@ -43,8 +43,15 @@ describe('urlmaster',function() {
 						});
 						describe('ref-scheme does not match base',function() {
 							describe('with some path',function() {
-								it('should use ref unchanged, but first path part converted to authority',function() {
-									um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https://a/b');
+								describe('with no slashes',function() {
+									it('should use ref unchanged, but first path part converted to authority',function() {
+										um.resolve('http://www.google.com/foo/bar','https:a/b').should.equal('https://a/b');
+									});
+								});
+								describe('with one slash',function() {
+									it('should use ref unchanged, but first path part converted to authority',function() {
+										um.resolve('http://www.google.com/foo/bar','https:/a/b').should.equal('https://a/b');
+									});
 								});
 							});
 							describe('with no path at all',function() {
