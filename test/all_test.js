@@ -586,6 +586,32 @@ describe('urlmaster',function() {
 					um.resolve('file:///C:/foo/bar','/C:/a').should.equal('file:///C:/a');
 				});
 			});
+			describe('base has drive but no path',function() {
+				describe('ref has path',function() {
+					describe('base with trailing slash',function() {
+						it('should use the base drive and ref path',function() {
+							um.resolve('file:///C:/','/a').should.equal('file:///C:/a');
+						});
+					});
+					describe('base without trailing slash',function() {
+						it('should use the base drive and ref path',function() {
+							um.resolve('file:///C:','/a').should.equal('file:///C:/a');
+						});
+					});
+				});
+				describe('ref has no path',function() {
+					describe('base with trailing slash',function() {
+						it('should use the base drive and ref query',function() {
+							um.resolve('file:///C:/','?foo=bar').should.equal('file:///C:/?foo=bar');
+						});
+					});
+					describe('base without trailing slash',function() {
+						it('should use the base drive and ref path',function() {
+							um.resolve('file:///C:','?foo=bar').should.equal('file:///C:/?foo=bar');
+						});
+					});
+				});
+			});
 		});
 	});
 });
