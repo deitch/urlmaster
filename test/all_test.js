@@ -10,13 +10,13 @@ describe('urlmaster',function() {
 		describe('(base,href)',function() {
 			describe('base string, href string',function() {
 				describe('invalid base',function() {
-					it('should return null',function() {
-						should.not.exist(um.resolve('abc',"/def"));
+					it('should return string of invalid URL',function() {
+						um.resolve('abc',"/def").should.equal("///def");
 					});
 				});
 				describe('null base',function() {
-					it('should return null',function() {
-						should.not.exist(um.resolve(null,"/def"));
+					it('should return string of invalid URL',function() {
+						um.resolve(null,"/def").should.equal("///def");
 					});
 				});
 				describe('valid base',function() {
@@ -127,13 +127,13 @@ describe('urlmaster',function() {
 			});
 			describe('base string, href array',function() {
 				describe('invalid base',function() {
-					it('should return array of nulls',function() {
-						um.resolve('abc',['/a','b']).should.eql([null,null]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve('abc',['/a','b']).should.eql(['///a','///b']);
 					});
 				});
 				describe('null base',function() {
-					it('should return array of nulls',function() {
-						um.resolve(null,['/a','b']).should.eql([null,null]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve(null,['/a','b']).should.eql(['///a','///b']);
 					});
 				});
 				describe('valid base',function() {
@@ -156,18 +156,18 @@ describe('urlmaster',function() {
 			});
 			describe('base array, href string',function() {
 				describe('invalid bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve(['def','abc'],'/a').should.eql([null,null]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve(['def','abc'],'/a').should.eql(['///a','///a']);
 					});
 				});
 				describe('null bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve([null,null],'/a').should.eql([null,null]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve([null,null],'/a').should.eql(['///a','///a']);
 					});
 				});
 				describe('mixed invalid and null bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve(['abc',null],'/a').should.eql([null,null]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve(['abc',null],'/a').should.eql(['///a','///a']);
 					});
 				});
 				describe('valid bases',function() {
@@ -190,18 +190,18 @@ describe('urlmaster',function() {
 			});
 			describe('base array, href array',function() {
 				describe('invalid bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve(['def','abc'],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve(['def','abc'],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('null bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve([null,null],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve([null,null],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('mixed invalid and null bases',function() {
-					it('should return array of nulls',function() {
-						um.resolve(['abc',null],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return array of string invalid URLs',function() {
+						um.resolve(['abc',null],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('valid bases',function() {
@@ -222,12 +222,12 @@ describe('urlmaster',function() {
 			describe('locn string, base string, href string',function() {
 				describe('invalid locn',function() {
 					it('should return null',function() {
-						should.not.exist(um.resolve('abc',"http://www.google.com","/def"));
+						um.resolve('abc',"http://www.google.com","/def").should.equal('http://www.google.com/def');
 					});
 				});
 				describe('null locn',function() {
 					it('should return null',function() {
-						should.not.exist(um.resolve(null,"http://www.google.com","/def"));
+						um.resolve(null,"http://www.google.com","/def").should.equal('http://www.google.com/def');
 					});
 				});
 				describe('valid locn',function() {
@@ -288,24 +288,24 @@ describe('urlmaster',function() {
 				describe('invalid locn',function() {
 					describe('valid base',function() {
 						it('should return array of nulls',function() {
-							um.resolve('abc','http://www.google.com/abc',['/a','b']).should.eql([null,null]);
+							um.resolve('abc','http://www.google.com/abc',['/a','b']).should.eql(['http://www.google.com/a','http://www.google.com/b']);
 						});
 					});
 					describe('invalid base',function() {
 						it('should return array of nulls',function() {
-							um.resolve('abc','/abc',['/a','b']).should.eql([null,null]);
+							um.resolve('abc','/abc',['/a','b']).should.eql(['///a','///b']);
 						});
 					});
 				});
 				describe('null locn',function() {
 					describe('valid base',function() {
 						it('should return array of nulls',function() {
-							um.resolve(null,'http://www.google.com/abc',['/a','b']).should.eql([null,null]);
+							um.resolve(null,'http://www.google.com/abc',['/a','b']).should.eql(['http://www.google.com/a','http://www.google.com/b']);
 						});
 					});
 					describe('invalid base',function() {
 						it('should return array of nulls',function() {
-							um.resolve(null,'/abc',['/a','b']).should.eql([null,null]);
+							um.resolve(null,'/abc',['/a','b']).should.eql(['///a','///b']);
 						});
 					});
 				});
@@ -337,15 +337,15 @@ describe('urlmaster',function() {
 			describe('locn string, base array, href string',function() {
 				describe('invalid locn',function() {
 					describe('valid base, invalid base',function() {
-						it('should return array of nulls',function() {
-							um.resolve('abc',['http://www.google.com/abc','abc'],'/a').should.eql([null,null]);
+						it('should return array with one valid and one invalid URL',function() {
+							um.resolve('abc',['http://www.google.com/abc','abc'],'/a').should.eql(['http://www.google.com/a','///a']);
 						});
 					});
 				});
 				describe('null locn',function() {
 					describe('valid base, invalid base',function() {
-						it('should return array of nulls',function() {
-							um.resolve(null,['http://www.google.com/abc','abc'],'/a').should.eql([null,null]);
+						it('should return array with one valid and one invalid URL',function() {
+							um.resolve(null,['http://www.google.com/abc','abc'],'/a').should.eql(['http://www.google.com/a','///a']);
 						});
 					});
 				});
@@ -381,18 +381,18 @@ describe('urlmaster',function() {
 			});
 			describe('locn string, base array, href array',function() {
 				describe('invalid locn',function() {
-					it('should return an array of nulls',function() {
-						um.resolve('abc',['def','abc'],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return an array of string of invalid URLS',function() {
+						um.resolve('abc',['def','abc'],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('null locn',function() {
-					it('should return an array of nulls',function() {
-						um.resolve(null,['def','abc'],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return an array of string of invalid URLS',function() {
+						um.resolve(null,['def','abc'],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('blank locn',function() {
-					it('should return an array of nulls',function() {
-						um.resolve('',['def','abc'],['/a','foo']).should.eql([[null,null],[null,null]]);
+					it('should return an array of string of invalid URLS',function() {
+						um.resolve('',['def','abc'],['/a','foo']).should.eql([['///a','///foo'],['///a','///foo']]);
 					});
 				});
 				describe('valid locn',function() {
