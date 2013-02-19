@@ -24,15 +24,30 @@ describe('urlmaster',function() {
 						it('should return base host + ref path',function() {
 							um.resolve('http://www.google.com/foo/bar','/a').should.equal('http://www.google.com/a');
 						});
+						describe('with query string',function() {
+							it('should include query',function() {
+								um.resolve('http://www.google.com/foo/bar','/a?foo=bar').should.equal('http://www.google.com/a?foo=bar');
+							});
+						});
 					});
 					describe('relative path ref',function() {
 						it('should return base host plus path with ref path',function() {
 							um.resolve('http://www.google.com/foo/bar','a').should.equal('http://www.google.com/foo/a');
 						});
+						describe('with query string',function() {
+							it('should include query',function() {
+								um.resolve('http://www.google.com/foo/bar','a?foo=bar').should.equal('http://www.google.com/foo/a?foo=bar');
+							});
+						});
 					});
 					describe('complete URL ref',function() {
 						it('should return ref',function() {
 							um.resolve('http://www.google.com/foo/bar','http://www.yahoo.com/a/b/c').should.equal('http://www.yahoo.com/a/b/c');
+						});
+						describe('with query string',function() {
+							it('should include query',function() {
+								um.resolve('http://www.google.com/foo/bar','http://www.yahoo.com/a/b/c?foo=bar').should.equal('http://www.yahoo.com/a/b/c?foo=bar');
+							});
 						});
 					});
 					describe('scheme with no authority in ref',function() {
@@ -40,12 +55,22 @@ describe('urlmaster',function() {
 							it('should use base scheme',function() {
 								um.resolve('http://www.google.com/foo/bar','http:/a/b').should.equal('http://www.google.com/a/b');
 							});
+							describe('with query string',function() {
+								it('should include query',function() {
+									um.resolve('http://www.google.com/foo/bar','http:/a/b?foo=bar').should.equal('http://www.google.com/a/b?foo=bar');
+								});
+							});
 						});
 						describe('ref-scheme does not match base',function() {
 							describe('with some path',function() {
 								describe('with no slashes',function() {
 									it('should use ref unchanged, but first path part converted to authority',function() {
 										um.resolve('http://www.google.com/foo/bar','https:a/b').should.equal('https://a/b');
+									});
+									describe('with query string',function() {
+										it('should include query',function() {
+											um.resolve('http://www.google.com/foo/bar','https:a/b?foo=bar').should.equal('https://a/b?foo=bar');
+										});
 									});
 								});
 								describe('with one slash',function() {
@@ -59,20 +84,40 @@ describe('urlmaster',function() {
 									it('should give ref unchanged but correct slashes',function() {
 										um.resolve('http://www.google.com/foo/bar','https:').should.equal('https:///');
 									});
+									describe('with query string',function() {
+										it('should include query',function() {
+											um.resolve('http://www.google.com/foo/bar','https:?foo=bar').should.equal('https:///?foo=bar');
+										});
+									});
 								});
 								describe('with one slash',function() {
 									it('should give ref unchanged with all slashes',function() {
 										um.resolve('http://www.google.com/foo/bar','https:/').should.equal('https:///');
+									});
+									describe('with query string',function() {
+										it('should include query',function() {
+											um.resolve('http://www.google.com/foo/bar','https:/?foo=bar').should.equal('https:///?foo=bar');
+										});
 									});
 								});
 								describe('with two slashes',function() {
 									it('should give ref unchanged with all slashes',function() {
 										um.resolve('http://www.google.com/foo/bar','https://').should.equal('https:///');
 									});
+									describe('with query string',function() {
+										it('should include query',function() {
+											um.resolve('http://www.google.com/foo/bar','https://?foo=bar').should.equal('https:///?foo=bar');
+										});
+									});
 								});
 								describe('with all slashes',function() {
 									it('should give ref unchanged with all slashes',function() {
 										um.resolve('http://www.google.com/foo/bar','https:///').should.equal('https:///');
+									});
+									describe('with query string',function() {
+										it('should include query',function() {
+											um.resolve('http://www.google.com/foo/bar','https:///?foo=bar').should.equal('https:///?foo=bar');
+										});
 									});
 								});
 							});
